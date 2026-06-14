@@ -1,0 +1,30 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    color: #38bdf8;
+}
+
+button {
+    background: #38bdf8;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+p {
+    font-size: 18px;
+}
+
+#gesture {
+    font-size: 24px;
+    font-weight: bold;
+    color: #22c55e;
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Motion Gesture Classifier</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Motion Gesture Classifier</h1>
+
+<button id="startBtn">Start Sensors</button>
+
+<h2>Accelerometer Data</h2>
+<p>X: <span id="x">0</span></p>
+<p>Y: <span id="y">0</span></p>
+<p>Z: <span id="z">0</span></p>
+
+<h2>Predictions</h2>
+
+<p>Circle: <span id="circle">0%</span></p>
+<p>Wave: <span id="wave">0%</span></p>
+<p>Idle: <span id="idle">0%</span></p>
+
+<h2>Current Gesture</h2>
+<p id="gesture">Waiting...</p>
+    <script>
+        document.getElementById("startBtn").addEventListener("click", async () => {
+
+            if (
+                typeof DeviceMotionEvent !== "undefined" &&
+                typeof DeviceMotionEvent.requestPermission === "function"
+            ) {
+                const permission = await DeviceMotionEvent.requestPermission();
+
+                if (permission !== "granted") {
+                    alert("Permission denied");
+                    return;
+                }
+            }
+
+            window.addEventListener("devicemotion", (event) => {
+
+                const x = event.accelerationIncludingGravity?.x || 0;
+                const y = event.accelerationIncludingGravity?.y || 0;
+                const z = event.accelerationIncludingGravity?.z || 0;
+
+                document.getElementById("x").textContent = x.toFixed(2);
+                document.getElementById("y").textContent = y.toFixed(2);
+                document.getElementById("z").textContent = z.toFixed(2);
+                if (Math.abs(x) > 8) {
+                document.getElementById("gesture").textContent = "Wave";
+                document.getElementById("wave").textContent = "90%";
+                document.getElementById("circle").textContent = "5%";
+                document.getElementById("idle").textContent = "5%";
+                }
+                else {
+                document.getElementById("gesture").textContent = "Idle";
+                document.getElementById("idle").textContent = "90%";
+                document.getElementById("wave").textContent = "5%";
+                document.getElementById("circle").textContent = "5%";
+                }
+            });
+
+            alert("Sensors started");
+        });
+    </script>
+</body>
+</html>
